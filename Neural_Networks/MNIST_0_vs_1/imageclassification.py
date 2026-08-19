@@ -21,3 +21,18 @@ model.fit(x_train,y_train,epochs=5,batch_size=32)
 test_loss, test_accuracy = model.evaluate(x_test, y_test)
 print("Test Loss:", test_loss)
 print("Test Accuracy:", test_accuracy)
+image = Image.open("ML\\1.png")
+image = image.convert("L")
+image = image.resize((28,28))
+image_array = np.array(image)
+image_array = 255 - image_array
+image_array = image_array
+image_input = image_array.reshape(1, 28, 28)
+prediction = model.predict(image_input,verbose = 1)
+print("Probability :",prediction[0][0])
+predicted_class = 1 if prediction[0][0] >= 0.5 else 0
+print("Predicted:", predicted_class)
+plt.imshow(image_array, cmap="gray")
+plt.title(f"Predicted: {predicted_class}")
+plt.axis("off")
+plt.show()
